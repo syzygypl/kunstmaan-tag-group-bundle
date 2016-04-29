@@ -3,6 +3,9 @@
   "require": {
     "kunstmaan/tagging-bundle": "~3.0"
   },
+  "require-dev": {
+    "friendsofsymfony/user-bundle": "2.0.*@dev"
+  },
   "license": "MIT",
   "authors": [
     {
