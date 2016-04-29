@@ -1,0 +1,16 @@
+.tags li {
+    margin: 5px 0;
+    padding-left: 10px;
+}
+
+.tags li .fa {
+    margin-right: 5px;
+}
+
+.tags li.btn-primary .text-muted {
+    color: #fff;
+}
+
+.tags li.btn-default .text-muted {
+    color: #ccc;
+}

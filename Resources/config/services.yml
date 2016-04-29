@@ -1,0 +1,50 @@
+services:
+
+  # Form handlers
+
+  szg_kunstmaantaggroupbundle.form.tag_group_form_handler:
+      class: Szg\KunstmaanTagGroupBundle\Service\FormHandler\TagGroupDefinitionFormHandler
+      arguments: [ '@form.factory' ]
+
+
+  # Form types
+
+  szg_kunstmaantaggroupbundle.form.tag_group_type:
+      class: Szg\KunstmaanTagGroupBundle\Form\TagGroupType
+      tags:
+          - { name: form.type, alias: kunstmaan_tag_group_type }
+
+
+  # Menu adaptors
+
+  szg_kunstmaantaggroupbundle.tag_group.menu.adaptor:
+        class: Szg\KunstmaanTagGroupBundle\Helper\Menu\TagsGroupsMenuAdaptor
+        tags:
+          -  { name: kunstmaan_admin.menu.adaptor }
+
+ # Repositories
+
+  szg_kunstmaantaggroupbundle.repository.tag_group:
+    class: Szg\KunstmaanTagGroupBundle\Entity\TagGroupRepository
+    factory:
+      - '@doctrine.orm.entity_manager'
+      - getRepository
+    arguments:
+      - Szg\KunstmaanTagGroupBundle\Entity\TagGroup
+
+  # Services
+
+  szg_kunstmaantaggroupbundle.tag_group.service:
+    class: Szg\KunstmaanTagGroupBundle\Service\TagGroupService
+    arguments: [ '@doctrine.orm.entity_manager', '@szg_kunstmaantaggroupbundle.repository.tag_group' ]
+
+
+  # Twig extensions
+
+  szg_kunstmaantaggroupbundle.twig.extension.tag_group:
+    public: false
+    class: Szg\KunstmaanTagGroupBundle\Service\Twig\TagGroupTwigExtension
+    arguments: [ '@szg_kunstmaantaggroupbundle.tag_group.service' ]
+    tags:
+      - { name: twig.extension }
+
