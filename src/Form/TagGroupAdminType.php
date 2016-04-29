@@ -4,18 +4,30 @@ namespace Szg\KunstmaanTagGroupBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class TagGroupAdminType extends AbstractType
 {
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
-        $builder->add('internalName');
+        $builder->add('name', null, [
+            'constraints' => [
+                new NotNull(),
+                new NotBlank()
+            ]
+        ]);
+        $builder->add('internalName', null, [
+            'constraints' => [
+                new NotNull(),
+                new NotBlank()
+            ]
+        ]);
     }
 
     /**
