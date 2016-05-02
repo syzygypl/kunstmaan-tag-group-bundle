@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Szg\KunstmaanTagGroupBundle\Entity\TagGroupDefinition;
 
-class TagGroupDefinitionFormHandler
+class TagGroupDefinitionFormHandler implements TagGroupDefinitionFormHandlerInterface
 {
 
     /** @var FormFactoryInterface */

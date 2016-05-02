@@ -86,7 +86,7 @@ or use the public service:
 
 ```php
 <?php
-$tagGroupService = $this->get('szg_kunstmaantaggroupbundle.tag_group.service');
+$tagGroupService = $this->get('szg_kunstmaantaggroupbundle.tag_group.manager');
 $group = $tagGroupService->getGroupByName('internalName');
 $tags = $tagGroupService->filterByGroup($taggable, $group)
 ```

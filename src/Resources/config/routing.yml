@@ -2,3 +2,8 @@ szg_kunstmaantaggroupbundle_taggroup_admin_list:
     resource: '@KunstmaanTagGroupBundle/Controller/TagGroupAdminListController.php'
     type:     annotation
     prefix:   /admin/taggroup/
+
+szg_kunstmaantaggroupbundle_taggroup_manager:
+    resource: '@KunstmaanTagGroupBundle/Controller/TagGroupManagerController.php'
+    type:     annotation
+    prefix:   /admin/taggroup/manager

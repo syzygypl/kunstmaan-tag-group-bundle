@@ -6,10 +6,8 @@ use Kunstmaan\AdminListBundle\AdminList\Configurator\AdminListConfiguratorInterf
 use Kunstmaan\AdminListBundle\Controller\AdminListController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Szg\KunstmaanTagGroupBundle\AdminList\TagGroupAdminListConfigurator;
-use Szg\KunstmaanTagGroupBundle\Entity\TagGroupDefinition;
 use Szg\KunstmaanTagGroupBundle\Entity\TagGroup;
 
 /**
@@ -47,7 +45,7 @@ class TagGroupAdminListController extends AdminListController
         $adminList = $this->getAdminListConfigurator();
         $adminList->addSimpleItemAction('Tagi', function (TagGroup $item) {
             return [
-                'path'   => 'kunstmaantaggroupbundle_admin_taggroup_tag_list',
+                'path'   => 'kunstmaantaggroupbundle_admin_taggroup_manager_list',
                 'params' => [
                     'group' => $item->getId(),
                 ],
@@ -117,73 +115,6 @@ class TagGroupAdminListController extends AdminListController
     public function exportAction(Request $request, $_format)
     {
         return parent::doExportAction($this->getAdminListConfigurator(), $_format, $request);
-    }
-
-    /**
-     * @Route("/tag/list/{group}", name="kunstmaantaggroupbundle_admin_taggroup_tag_list")
-     * @param TagGroup $group
-     *
-     * @return array
-     */
-    public function listTagsAction(TagGroup $group)
-    {
-        $service = $this->get('szg_kunstmaantaggroupbundle.tag_group.service');
-
-        return $this->render('@KunstmaanTagGroup/TagGroup/list.html.twig', [
-            'tags'  => [
-                'all'   => $service->getAllTags(),
-                'group' => $group->getTags()
-            ],
-            'group' => $group
-        ]);
-    }
-
-    /**
-     * @Route("/tag/add", name="kunstmaantaggroupbundle_admin_taggroup_tag_add")
-     * @Method({"POST"})
-     * @param Request $request
-     *
-     * @return array
-     */
-    public function addTagAction(Request $request)
-    {
-        $service = $this->get('szg_kunstmaantaggroupbundle.tag_group.service');
-        $handler = $this->get('szg_kunstmaantaggroupbundle.form.tag_group_form_handler');
-        $form = $handler->handle($request);
-
-        if ($form->isValid()) {
-            /** @var TagGroupDefinition $definition */
-            $definition = $form->getData();
-            if ($service->addTagToGroup($definition->getTag(), $definition->getGroup())) {
-                return new JsonResponse(['status' => 'success'], 200);
-            }
-        }
-
-        return new JsonResponse(['status' => 'error'], 400);
-    }
-
-    /**
-     * @Route("/tag/remove", name="kunstmaantaggroupbundle_admin_taggroup_tag_remove")
-     * @Method({"POST"})
-     * @param Request $request
-     *
-     * @return array
-     */
-    public function removeTagAction(Request $request)
-    {
-        $service = $this->get('szg_kunstmaantaggroupbundle.tag_group.service');
-        $handler = $this->get('szg_kunstmaantaggroupbundle.form.tag_group_form_handler');
-        $form = $handler->handle($request);
-
-        if ($form->isValid()) {
-            /** @var TagGroupDefinition $definition */
-            $definition = $form->getData();
-            if ($service->removeTagFromGroup($definition->getTag(), $definition->getGroup())) {
-                return new JsonResponse(['status' => 'success'], 200);
-            }
-        }
-
-        return new JsonResponse(['status' => 'error'], 400);
     }
 
 }

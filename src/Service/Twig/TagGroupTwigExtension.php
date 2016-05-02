@@ -4,23 +4,23 @@ namespace Szg\KunstmaanTagGroupBundle\Service\Twig;
 
 use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Szg\KunstmaanTagGroupBundle\Entity\TagGroup;
-use Szg\KunstmaanTagGroupBundle\Service\TagGroupService;
+use Szg\KunstmaanTagGroupBundle\Service\TagGroupManager;
 use Kunstmaan\TaggingBundle\Entity\Tag;
 
 class TagGroupTwigExtension extends \Twig_Extension
 {
 
     /**
-     * @var TagGroupService
+     * @var TagGroupManager
      */
     private $tagGroupService;
 
     /**
      * TagGroupTwigExtension constructor.
      *
-     * @param TagGroupService $tagGroupService
+     * @param TagGroupManager $tagGroupService
      */
-    public function __construct(TagGroupService $tagGroupService)
+    public function __construct(TagGroupManager $tagGroupService)
     {
         $this->tagGroupService = $tagGroupService;
     }

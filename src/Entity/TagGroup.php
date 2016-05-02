@@ -6,10 +6,13 @@ namespace Szg\KunstmaanTagGroupBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kunstmaan\TaggingBundle\Entity\Tag;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="kuma_tag_group")
  * @ORM\Entity(repositoryClass="Szg\KunstmaanTagGroupBundle\Entity\TagGroupRepository")
+ * @UniqueEntity("internalName")
  */
 class TagGroup
 {
@@ -39,7 +42,7 @@ class TagGroup
      * @ORM\OrderBy({"name" = "ASC"})
      * @ORM\JoinTable(name="kuma_tag_group_tags",
      *      joinColumns={@ORM\JoinColumn(name="tag_group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
      */
     private $tags;

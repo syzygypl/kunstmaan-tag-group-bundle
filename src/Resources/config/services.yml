@@ -34,8 +34,8 @@ services:
 
   # Services
 
-  szg_kunstmaantaggroupbundle.tag_group.service:
-    class: Szg\KunstmaanTagGroupBundle\Service\TagGroupService
+  szg_kunstmaantaggroupbundle.tag_group.manager:
+    class: Szg\KunstmaanTagGroupBundle\Service\TagGroupManager
     arguments: [ '@doctrine.orm.entity_manager', '@szg_kunstmaantaggroupbundle.repository.tag_group' ]
 
 
@@ -44,7 +44,7 @@ services:
   szg_kunstmaantaggroupbundle.twig.extension.tag_group:
     public: false
     class: Szg\KunstmaanTagGroupBundle\Service\Twig\TagGroupTwigExtension
-    arguments: [ '@szg_kunstmaantaggroupbundle.tag_group.service' ]
+    arguments: [ '@szg_kunstmaantaggroupbundle.tag_group.manager' ]
     tags:
       - { name: twig.extension }
 
