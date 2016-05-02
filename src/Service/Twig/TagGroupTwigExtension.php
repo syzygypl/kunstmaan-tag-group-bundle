@@ -4,25 +4,23 @@ namespace Szg\KunstmaanTagGroupBundle\Service\Twig;
 
 use Kunstmaan\TaggingBundle\Entity\Taggable;
 use Szg\KunstmaanTagGroupBundle\Entity\TagGroup;
-use Szg\KunstmaanTagGroupBundle\Service\TagGroupManager;
 use Kunstmaan\TaggingBundle\Entity\Tag;
+use Szg\KunstmaanTagGroupBundle\Service\TagGroupManagerInterface;
 
 class TagGroupTwigExtension extends \Twig_Extension
 {
 
     /**
-     * @var TagGroupManager
+     * @var TagGroupManagerInterface
      */
-    private $tagGroupService;
+    private $tagGroupManager;
 
     /**
-     * TagGroupTwigExtension constructor.
-     *
-     * @param TagGroupManager $tagGroupService
+     * @param TagGroupManagerInterface $tagGroupManager
      */
-    public function __construct(TagGroupManager $tagGroupService)
+    public function __construct(TagGroupManagerInterface $tagGroupManager)
     {
-        $this->tagGroupService = $tagGroupService;
+        $this->tagGroupManager = $tagGroupManager;
     }
 
     public function getFilters()
@@ -41,14 +39,14 @@ class TagGroupTwigExtension extends \Twig_Extension
     public function tagsFromGroupFilter(Taggable $taggable, $group)
     {
         if (is_string($group)) {
-            $group = $this->tagGroupService->getGroupByName($group);
+            $group = $this->tagGroupManager->getGroupByName($group);
         }
 
-        if(!$group instanceof TagGroup){
+        if (!$group instanceof TagGroup) {
             throw new \InvalidArgumentException('Tag group is not found.');
         }
 
-        return $this->tagGroupService->filterByGroup($taggable, $group);
+        return $this->tagGroupManager->filterByGroup($taggable, $group);
     }
 
     public function getName()
